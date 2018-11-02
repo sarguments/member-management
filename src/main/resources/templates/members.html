@@ -1,0 +1,22 @@
+{{> include/header}}
+<div class="col-md-8">
+  <h1>회원 리스트</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>USER ID</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#each members}}
+    <tr>
+      <td>{{id}}</td>
+      <td><a href="/members/{{id}}">{{userId}}</a></td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

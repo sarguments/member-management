@@ -1,0 +1,64 @@
+{{> include/header}}
+<div class="row">
+  <div class="col-md-8">
+    <h1> 회원가입 </h1>
+    <form>
+      <label for="userId">아이디</label>
+      <input type="text" id="userId" placeholder="아이디 입력하세요">
+      <label for="name">이름</label>
+      <input type="text" id="name" placeholder="이름을 입력하세요">
+      <label for="nickName">별명</label>
+      <input type="text" id="nickName" placeholder="별명을 입력하세요">
+      <label for="email">이메일</label>
+      <input type="text" id="email" placeholder="이메일을 입력하세요">
+      <br>
+      <button type="button" id="btnSave">등록</button>
+    </form>
+  </div>
+</div>
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+<script type="application/javascript">
+
+  $('#btnSave').click(function () {
+    var member = {
+      userId: $('#userId').val(),
+      name: $('#name').val(),
+      nickName: $('#nickName').val(),
+      email: $('#email').val()
+    };
+
+    $.ajax({
+      url: '/members',
+      method: 'POST',
+      data: JSON.stringify(member),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        alert("id : " + response.valueOf() + "번으로 추가 성공");
+      },
+      error: function (response) {
+        alertErrorMessage(response);
+      }
+    });
+  });
+
+  var alertErrorMessage = function (response) {
+    const errorFields = response.responseJSON.errors;
+
+    if (!errorFields) {
+      alert('에러 : ' + response.responseText);
+      return;
+    }
+
+    for (var i = 0, length = errorFields.length; i < length; i++) {
+      alert(errorFields[i].defaultMessage);
+    }
+  };
+
+</script>
+</body>
+</html>
