@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MemberAcceptanceTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -34,9 +34,7 @@ public class MemberAcceptanceTest {
     @Test
     public void findMemberByUserId() {
         MemberRequestDto requestDto1 = new MemberRequestDto("testid1", "name", "nick", "email1@email");
-        MemberRequestDto requestDto2 = new MemberRequestDto("testid2", "name", "nick", "email2@email");
         Long id1 = testRestTemplate.postForObject("/members", requestDto1, Long.class);
-        Long id2 = testRestTemplate.postForObject("/members", requestDto2, Long.class);
 
         ResponseEntity<String> response = testRestTemplate.getForEntity("/members/" + id1, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

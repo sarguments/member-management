@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ValidCustomException extends RuntimeException {
-
     private final Error[] errors;
 
     public ValidCustomException(String defaultMessage, String field) {
